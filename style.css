@@ -1,3 +1,95 @@
-#root {
-  color: red;
+body{
+  background-color: #d6e2f0;
+}
+.search-container {
+  float: right;
+}
+
+.search-container  input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+/* .slideShow{
+  padding-bottom:1%;
+  padding-top: 1%;
+} */
+
+.flex-container{
+  width: 100%;
+  height: auto;
+
+  display:flex;
+  flex-direction: column;
+  
+  justify-content: space-around;
+  /* flex-flow: wrap; */
+
+}
+
+.rows{
+  
+  display:flex; 
+  width:95%;
+  
+}
+
+.episodes-card{
+
+
+  
+  padding: 2%;
+  width: 30%;
+  height: 100%;
+  justify-content: space-between;
+  
+}
+
+.episodes{
+
+  background-color:#fbf7e0;
+  border-style: outset;
+  border-radius: 5px;
+  padding: 0.5em;
+  /* padding-left: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 50px;
+  padding-right: 20px; */
+
+
+}
+.episodes img{
+
+  /* padding: 25px;
+  padding-bottom:0px; */
+}
+
+.episodes p{
+  
+  /* padding:10px; 
+  text-align: center; */
+}
+
+.episodes h3{
+  /* padding-top: 0; 
+  text-align: center; */
+}
+
+
+
+.episodes:hover{
+  border-style: groove;
+
 }
