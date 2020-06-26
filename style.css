@@ -28,68 +28,50 @@ body{
 } */
 
 .flex-container{
-  width: 100%;
+
+  width: 95%;
   height: auto;
 
   display:flex;
-  flex-direction: column;
-  
+  flex-direction: row;
   justify-content: space-around;
-  /* flex-flow: wrap; */
+  flex-flow: wrap;
 
 }
 
-.rows{
-  
-  display:flex; 
-  width:95%;
-  
-}
 
 .episodes-card{
 
+  background-color: #fbf7e0 ;
+  width: 25%;
+  height: 400px;
+  margin: 20px;
+  padding:5px;
 
-  
-  padding: 2%;
-  width: 30%;
-  height: 100%;
-  justify-content: space-between;
-  
-}
-
-.episodes{
-
-  background-color:#fbf7e0;
+  box-sizing: border-box;
   border-style: outset;
   border-radius: 5px;
-  padding: 0.5em;
-  /* padding-left: 20px;
-  margin-bottom: 20px;
-  padding-bottom: 50px;
-  padding-right: 20px; */
-
-
-}
-.episodes img{
-
-  /* padding: 25px;
-  padding-bottom:0px; */
-}
-
-.episodes p{
   
-  /* padding:10px; 
-  text-align: center; */
 }
 
-.episodes h3{
-  /* padding-top: 0; 
-  text-align: center; */
-}
+.episodes-.episodes-card{
 
-
-
-.episodes:hover{
   border-style: groove;
 
+}
+
+@media screen and (max-width:1200px){
+  .episodes-card{
+    width: 40%;
+  }
+}
+@media screen and (max-width:768px){
+  .episodes-card{
+    height: 420px;
+  }
+}
+@media screen and (max-width: 600px){
+  .episodes-card{
+    width: 70%;
+  }
 }

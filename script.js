@@ -24,13 +24,11 @@ function makePageForEpisodes(episodeList) {
 
   }
 
-  episodeList.forEach(function(episode,index){
+  episodeList.forEach(function(episode){
 
     let episodeCardEl = document.createElement("div");
     episodeCardEl.className = "episodes-card";
 
-    let episodeContentEl = document.createElement("div");
-    episodeContentEl.className = "episodes";
 
     let hEl = document.createElement("h3");
 
@@ -42,49 +40,16 @@ function makePageForEpisodes(episodeList) {
     console.log(s,e);
     let sE = addZeros(s,e);
 
-    if(index % 3 === 0 ){
-
-    let rowEl = document.createElement("div");
-    rowEl.className ="rows";
-    flexContainer.appendChild(rowEl);
-
-
     hEl.innerText = episode.name +" - "+ sE;
     // console.log(hEl);
     episodeImgEl.src = episode.image.medium;
     episodeDecsriptionEl.innerHTML = episode.summary;
 
-    rowEl.appendChild(episodeCardEl);
-    episodeCardEl.appendChild(episodeContentEl);
-    //episodeContentEl.appendChild(hEl);
-    episodeContentEl.appendChild(episodeImgEl);
-    episodeContentEl.appendChild(hEl);
-    episodeContentEl.appendChild(episodeDecsriptionEl);
-    }
-    else{
-      let rows = document.querySelectorAll(".rows");
-      rows.forEach(row => {
-        if(index % 3 === 1 || index % 3 ===2){
-
-          hEl.innerText = episode.name +" - "+ sE;
-        
-          episodeImgEl.src = episode.image.medium;
-          episodeDecsriptionEl.innerHTML = episode.summary;
-
-          row.appendChild(episodeCardEl);
-          episodeCardEl.appendChild(episodeContentEl);
-         // episodeContentEl.appendChild(hEl);
-          episodeContentEl.appendChild(episodeImgEl);
-          episodeContentEl.appendChild(hEl);
-          episodeContentEl.appendChild(episodeDecsriptionEl);
-        }
-      })
-    }
-
-
-
-
-
+    flexContainer.appendChild(episodeCardEl);
+    episodeCardEl.appendChild(episodeImgEl);
+    episodeCardEl.appendChild(hEl);
+    episodeCardEl.appendChild(episodeDecsriptionEl);
+    
   });
 
   
