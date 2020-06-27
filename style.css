@@ -2,7 +2,10 @@ body{
   background-color: #d6e2f0;
 }
 .search-container {
+
+
   float: right;
+  
 }
 
 .search-container  input[type=text] {
