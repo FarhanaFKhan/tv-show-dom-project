@@ -1,15 +1,19 @@
 //You can edit ALL of the code here
+const allEpisodes = getAllEpisodes();
+const rootElem = document.getElementById("root");
+const flexContainer = document.querySelector(".flex-container");
+const searchBar = document.getElementById("search-word");
+const displayParagraph = document.querySelector(".search-container p");
 
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
-  doLiveSearch(allEpisodes);
-  let inputField = document.getElementById("search-word");
-inputField.addEventListener("change", function(){
-  console.log("hey");
-})
+
   
+  makePageForEpisodes(allEpisodes);
+  searchBar.addEventListener('keyup',doLiveSearch); 
+
 }
+
+         /*Function for fromatting episode title*/
 
 function addZeros(season, episode){
   if(season <= 9 && episode <= 9){
@@ -24,22 +28,40 @@ function addZeros(season, episode){
 
 }
 
+             /*Function for Live Search*/
+       
 
-function doLiveSearch(episodeList){
+function doLiveSearch(){
+  flexContainer.innerHTML ="";
+  const term = event.target.value.toLowerCase();
+  
+    let filtered = allEpisodes.filter(episode =>{
+
+        return (episode.name + episode.summary).toLowerCase().includes(term);
+      
+      })
+      
+      displayParagraph.innerText = `Displaying:${filtered.length}/${allEpisodes.length}`;
+      
+      filtered.forEach(episode =>{
+
+        createEpisodeCards(episode);
+        console.log(episode.name + "-->"+episode.summary);
+  
+      })
+  
+      
+
+}
+   
 
 
-  let str = document.getElementById("search-word").value;
-  //console.log(str);
-  episodeList.forEach(episode => {
 
-    let episodeName = episode.name;
-    let episodeSummary = episode.summary;
+                /*function to create episode cards*/
 
-    if(episodeName.includes(str)){
+function createEpisodeCards(episode){
 
-      const rootElem = document.getElementById("root");
-      const flexContainer = document.querySelector(".flex-container");
-      let episodeCardEl = document.createElement("div");
+  let episodeCardEl = document.createElement("div");
     episodeCardEl.className = "episodes-card";
 
 
@@ -62,84 +84,30 @@ function doLiveSearch(episodeList){
     episodeCardEl.appendChild(episodeImgEl);
     episodeCardEl.appendChild(hEl);
     episodeCardEl.appendChild(episodeDecsriptionEl);
-
-
-      
-
-    }
-
-
-
-    // let filtered = episodeList.filter(episode =>{
-    //   if(episode.name.includes(str) || episode.summary.includes(str)){
-    //     return episode;
-    //   };
-    // })
-  })
-
-  
-  
-
-  
-
-  
 }
-//doLiveSearch(allEpisodes);
 
+
+/*function to display all the episodes*/
 
 function makePageForEpisodes(episodeList) {
 
-  const rootElem = document.getElementById("root");
-
-  const flexContainer = document.querySelector(".flex-container");
-
-  // function addZeros(season, episode){
-  //   if(season <= 9 && episode <= 9){
-  //     return "S0" + season +"E0"+ episode
-
-  //   } else if(season <= 9 && episode >= 10){
-  //     return "S0" + season + "E"+ episode;
-  //   } else if (episode <= 9 && season >= 10){
-  //     return "S" + season + "E0" + episode;
-
-  //   }
-
-  // }
+  flexContainer.innerHTML = " ";
+  
+ 
 
   episodeList.forEach(function(episode){
 
-    let episodeCardEl = document.createElement("div");
-    episodeCardEl.className = "episodes-card";
-
-
-    let hEl = document.createElement("h3");
-
-    let episodeImgEl = document.createElement("img");
-
-    let episodeDecsriptionEl = document.createElement("p");
-    let s = episode.season;
-    let e = episode.number;
-    //console.log(s,e);
-    let sE = addZeros(s,e);
-
-    hEl.innerText = episode.name +" - "+ sE;
-    // console.log(hEl);
-    episodeImgEl.src = episode.image.medium;
-    episodeDecsriptionEl.innerHTML = episode.summary;
-
-    flexContainer.appendChild(episodeCardEl);
-    episodeCardEl.appendChild(episodeImgEl);
-    episodeCardEl.appendChild(hEl);
-    episodeCardEl.appendChild(episodeDecsriptionEl);
-    
+    createEpisodeCards(episode);
   });
 
-  
+  // searchBar.addEventListener('keyup', doLiveSearch);
 
   
 
   
-//  console.log(doLiveSearch(episodeList, "winter"));
+
+  
+
     
 }
 
