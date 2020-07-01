@@ -4,12 +4,16 @@ const rootElem = document.getElementById("root");
 const flexContainer = document.querySelector(".flex-container");
 const searchBar = document.getElementById("search-word");
 const displayParagraph = document.querySelector(".search-container p");
+const dropDownEl = document.getElementById("episode-select");
+
 
 function setup() {
 
   
   makePageForEpisodes(allEpisodes);
   searchBar.addEventListener('keyup',doLiveSearch); 
+  createDropDownList(allEpisodes);
+  dropDownEl.addEventListener('change',selectEpisode);
 
 }
 
@@ -53,7 +57,47 @@ function doLiveSearch(){
       
 
 }
-   
+
+           /*function to create the dropdown list */
+function createDropDownList(episodeList){
+
+  episodeList.forEach(episode => {
+    const optionEl = document.createElement("option");
+    optionEl.value = episode.name;
+    let s = episode.season;
+    let e = episode.number;
+    let sE = addZeros(s,e);
+    optionEl.textContent = sE + " - " + episode.name;
+    dropDownEl.appendChild(optionEl);
+
+  })
+ 
+
+}   
+
+            /*function to select an episode */
+function selectEpisode(){
+  const selected = event.target.value;
+  const episodeCards = document.querySelectorAll(".episodes-card");
+  const episodeTitles = document.querySelectorAll("h3");
+
+  
+
+  for(let i = 0; i < episodeCards.length; i++){
+    if(selected != "showAll"){
+
+      if(episodeTitles[i].innerHTML.includes(selected)){
+        //console.log(episodeCards[i]);
+        episodeCards[i].style.display = 'block';
+      }else{
+        episodeCards[i].style.display = 'none';
+      }
+    }else{
+      episodeCards[i].style.display = 'inline';
+    }
+  }
+  
+}            
 
 
 
