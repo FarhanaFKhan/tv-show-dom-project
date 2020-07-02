@@ -1,5 +1,8 @@
 //You can edit ALL of the code here
-const allEpisodes = getAllEpisodes();
+//const allEpisodes = getAllEpisodes();
+let allEpisodes;
+
+
 const rootElem = document.getElementById("root");
 const flexContainer = document.querySelector(".flex-container");
 const searchBar = document.getElementById("search-word");
@@ -8,12 +11,19 @@ const dropDownEl = document.getElementById("episode-select");
 
 
 function setup() {
-
   
-  makePageForEpisodes(allEpisodes);
-  searchBar.addEventListener('keyup',doLiveSearch); 
-  createDropDownList(allEpisodes);
-  dropDownEl.addEventListener('change',selectEpisode);
+
+  fetch('https://api.tvmaze.com/shows/527/episodes')
+  .then(response => response.json())
+  .then(data => {
+    
+    allEpisodes = data;  
+    makePageForEpisodes(allEpisodes)
+    searchBar.addEventListener('keyup',doLiveSearch)
+    createDropDownList(allEpisodes);
+    dropDownEl.addEventListener('change',selectEpisode);
+}
+  );
 
 }
 
