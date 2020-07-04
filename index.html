@@ -11,10 +11,51 @@
 
   <body>
     <div id="root">
+      <div class="slideshow-container">
+        <div class="mySlides">
+          <img src='images/image7.jpg'  alt="poster of game of thrones"/>
+            <div class="text">Game of Thrones</div>
+        </div>
+  
+       <div class="mySlides">
+         <img  src='images/image8.jpg'  alt="poster of Rick and Morty"/>
+          <div class="text">Rick & Morty</div>
+       </div>
+  
+       <div class="mySlides">
+         <img  src='images/image9.jpg'  alt="poster of breaking bad"/>
+          <div class="text">Breaking Bad</div>
+        </div>
+  
+       <div class="mySlides">
+         <img  src='images/image10.jpg'  alt="a view of the TV"/>
+          <div class="text">TV MAZE</div>
+       </div>
+    
+  
+        <a class="prev" onclick='plusSlides(-1)'>&#10094;</a>
+        <a class="next" onclick='plusSlides(1)'>&#10095;</a>
+     </div>
+    <br/>
+  
+      <div style='text-align: center;'>
+        <span class="dot" onclick='currentSlide(1)'></span>
+        <span class="dot" onclick='currentSlide(2)'></span>
+        <span class="dot" onclick='currentSlide(3)'></span>
+        <span class="dot" onclick='currentSlide(4)'></span>
+      </div>
+  
       <div class="search-container">
 
+        <select id="show-select">
+          <option value="0">Show All</option>
+          <!-- <option value="orange">Game of Thrones</option>
+          <option value="pineapple">Pineapple</option>
+          <option value="banana">Banana</option> -->
+        </select>
+
           <select id="episode-select">
-            <option value="showAll">Select One</option>
+            <option id="all-episodes"  value="showAll">Select One</option>
             <!-- <option value="orange">Winter is Coming - S01E01</option>
             <option value="pineapple">Pineapple</option>
             <option value="banana">Banana</option> -->
@@ -54,6 +95,7 @@
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
+    <script src ="shows.js"></script>
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
