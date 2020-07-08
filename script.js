@@ -5,15 +5,23 @@ const allShows = getAllShows();
 const rootElem = document.getElementById("root");
 const flexContainer = document.querySelector(".flex-container");
 const searchBar = document.getElementById("search-word");
-const displayParagraph = document.querySelector(".search-container p");
+const displayParagraph = document.querySelectorAll(".search-container p");
 const dropDownEl = document.getElementById("episode-select");
 const showsDropDownEl = document.getElementById("show-select");
+const showSearchBoxEl = document.getElementById("show-search-box");
+
+
 
 function setup() {
 
   showSlides(slideIndex);
   createShowList(allShows);
   showsDropDownEl.addEventListener('change', selectShow);
+  createShowCard(allShows);
+  searchBar.style.display = "none";
+  dropDownEl.style.display = "none";
+  //showsDropDownEl.style.display = "none";
+  showSearchBoxEl.addEventListener('keyup',liveSearchShows);
 }
 
 
@@ -40,29 +48,24 @@ function doLiveSearch(){
   flexContainer.innerHTML ="";
   const term = event.target.value.toLowerCase();
   
-    let filtered = allEpisodes.filter(episode =>{
+    let filteredEpisodes = allEpisodes.filter(episode =>{
 
         return (episode.name + episode.summary).toLowerCase().includes(term);
       
       })
       
-      displayParagraph.innerText = `Displaying:${filtered.length}/${allEpisodes.length}`;
+      displayParagraph[1].innerText = `Displaying:${filteredEpisodes.length}/${allEpisodes.length}`;
       
-      filtered.forEach(episode =>{
-
-        createEpisodeCards(episode);
-        console.log(episode.name + "-->"+episode.summary);
-  
-      })
-  
+      filteredEpisodes.forEach(episode =>{
+        createEpisodeCards(episode);          
+      }) 
       
-
 }
 
         /*function to create the dropdown list for shows */
 
 function createShowList(showsList){
-
+  
   showsList.forEach(show =>{
     const optEl = document.createElement("option");
     optEl.value = show.id;
@@ -70,58 +73,146 @@ function createShowList(showsList){
     showsDropDownEl.appendChild(optEl);
 
   })
-}        
+}   
+
+/*function to search through the shows */
+function liveSearchShows(){
+  flexContainer.innerHTML ="";
+  const term = event.target.value.toLowerCase();
+  
+    let filteredShows = allShows.filter(show =>{
+
+        return (show.name + show.summary).toLowerCase().includes(term);
+      
+      })
+      
+      displayParagraph[1].innerText = `Displaying:${filteredShows.length}/${allShows.length}`;
+      createShowCard(filteredShows);  
+       
+      let prevShows = document.querySelectorAll("#show-select option");
+      for(let i = 1; i < prevShows.length; i++){
+       showsDropDownEl.removeChild(prevShows[i]);  
+      }
+      createShowList(filteredShows);            
+       
+}
+
+     /*function to clear page */
+function clearPage(){
+  const episodeCards = document.querySelectorAll(".episodes-card");
+  let prevEpisodes = document.querySelectorAll("#episode-select option");
+
+  for(let i = 0; i < episodeCards.length; i++){
+    flexContainer.removeChild(episodeCards[i]);
+  } 
+
+    for(let i = 1; i < prevEpisodes.length; i++){
+    dropDownEl.removeChild(prevEpisodes[i]);
+  }
+}     
 
           /*function to select a show */
 function selectShow(){
   let SHOW_ID = event.target.value;
   const episodeSelectEl = document.querySelector("#all-episodes");
-  console.log(episodeSelectEl);
   
+  if(SHOW_ID === "0"){
+    clearPage();
+    createShowCard(allShows);
+  }else{  
   fetch(`https://api.tvmaze.com/shows/${SHOW_ID}/episodes`)
   .then(response => response.json())
   .then(data => {
-    allEpisodes = data;  
-    //console.log(allEpisodes.names);
+    allEpisodes = data;    
     makePageForEpisodes(allEpisodes);
     searchBar.addEventListener('keyup',doLiveSearch);
     createDropDownList(allEpisodes);
     dropDownEl.addEventListener('change',selectEpisode);
   })
   .catch(err => console.log(err));
+  }
 
 } 
 
+
+
+     /*function to create card to display Shows*/
+
+function createShowCard(allShows){
+  allShows.forEach(show => {
+    const showCardEl = document.createElement("div");
+    showCardEl.className = "show-card";
+    const showTitleEl = document.createElement("h2");
+    const infoDivEl = document.createElement("div");
+    infoDivEl.className = "show-card-info";
+    const showImageEl = document.createElement("img");
+    const showSummaryEl = document.createElement("p");
+    const listEl = document.createElement("ul");
+    const ratingEl = document.createElement("li");
+    const genreEl = document.createElement("li");
+    const statusEl = document.createElement("li");
+    const runtimeEl = document.createElement("li");
+
+    showTitleEl.textContent = show.name;
+
+    if(show.image != null){
+      showImageEl.src = show.image.medium;
+    } else{
+      showImageEl.src = "https://image.freepik.com/free-vector/image-template-background_1314-149.jpg";
+      showImageEl.style.height = '50%';
+
+    }
+
+    showSummaryEl.innerHTML = show.summary;
+    ratingEl.textContent = "Rating: " + " " + show.rating.average;
+    genreEl.textContent = "Genre: " + " " + show.genres;
+    statusEl.textContent = "Status: " + " " + show.status;
+    runtimeEl.textContent = "Runtime: " + " " + show.runtime + "mins";      
+
+    flexContainer.appendChild(showCardEl);
+    showCardEl.appendChild(showTitleEl);
+    showCardEl.appendChild(infoDivEl);
+    infoDivEl.appendChild(showImageEl);
+    infoDivEl.appendChild(showSummaryEl);
+    infoDivEl.appendChild(listEl);
+    listEl.appendChild(ratingEl);
+    ratingEl.appendChild(genreEl);
+    genreEl.appendChild(statusEl);
+    statusEl.appendChild(runtimeEl);
+
+
+
+  });
+
+}    
+
            /*function to create the dropdown list for episodes */
+
 function createDropDownList(episodeList){
   let prevEpisodes = document.querySelectorAll("#episode-select option");
   for(let i = 1; i < prevEpisodes.length; i++){
     dropDownEl.removeChild(prevEpisodes[i]);
-  }
-  console.log(prevEpisodes);
-
+  }  
   episodeList.forEach(episode => {
+
     let optionEl = document.createElement("option");
     optionEl.value = episode.name;
     let seasonNumber = episode.season;
     let episodeNumber = episode.number;
     let sE = addZeros(seasonNumber,episodeNumber);
     optionEl.textContent = " ";
-    optionEl.textContent = sE + " - " + episode.name;
-    //console.log(optionEl);
-    dropDownEl.appendChild(optionEl);
-    //console.log(sE + " - " + episode.name);
+    optionEl.textContent = sE + " - " + episode.name;    
+    dropDownEl.appendChild(optionEl);   
 
   })
- 
 
 }  
 
          
 
             /*function to select an episode */
-function selectEpisode(){
 
+function selectEpisode(){
   const selected = event.target.value;
   const episodeCards = document.querySelectorAll(".episodes-card");
   const episodeTitles = document.querySelectorAll("h3");
@@ -130,7 +221,6 @@ function selectEpisode(){
     if(selected != "showAll"){
 
       if(episodeTitles[i].innerHTML.includes(selected)){
-        //console.log(episodeCards[i]);
         episodeCards[i].style.display = 'block';
       }else{
         episodeCards[i].style.display = 'none';
@@ -163,8 +253,13 @@ function createEpisodeCards(episode){
     let sE = addZeros(seasonNumber,episodeNumber);
 
     hEl.innerText = episode.name +" - "+ sE;
-    // console.log(hEl);
-    episodeImgEl.src = episode.image.medium;
+    if(episode.image === null){
+      episodeImgEl.src = "https://image.freepik.com/free-vector/image-template-background_1314-149.jpg";
+      episodeImgEl.style.height = '50%'; 
+    } else{
+      episodeImgEl.src = episode.image.medium;
+    }
+    
     episodeDecsriptionEl.innerHTML = episode.summary;
 
     flexContainer.appendChild(episodeCardEl);
@@ -179,6 +274,11 @@ function createEpisodeCards(episode){
 function makePageForEpisodes(episodeList) {
 
   flexContainer.innerHTML = " "; 
+  displayParagraph[1].innerText = `Displaying:${episodeList.length}`;
+  searchBar.style.display = "inline";
+  showSearchBoxEl.style.display = "none";
+  displayParagraph[0].style.display = "none";
+
  
   episodeList.forEach(episode => {
 

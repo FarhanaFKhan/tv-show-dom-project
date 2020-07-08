@@ -1,5 +1,6 @@
 body{
-  background-color: #d6e2f0;
+  /* background-color: #d6e2f0; */
+  background-color: #717171;
 }
 
 .slideshow-container img{
@@ -76,14 +77,64 @@ display: none;
 
 
 .search-container {
-
-
-  /* float: right; */
   display: flex;
-  justify-content: space-around;
-  
+  justify-content: space-around;  
 }
 
+ /* #show-search-box{
+  display: flex;
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  height: 30px;
+  border: none;
+} */
+
+/* #show-search-box p{
+  
+} */
+
+.show-card{
+  /* background-color: #fbf7e0 ; */
+
+  /* display:flex; */
+  /* flex-direction: row;
+  justify-content: space-around;
+  flex-flow: wrap; */
+  width: 90%;
+  box-sizing: border-box;
+  border-style: outset;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 50px;
+}
+.show-card h2{
+  display: flex;
+  justify-content: center;
+  text-decoration: underline;  
+}
+
+.show-card-info{
+  display: flex;
+  flex-direction: row;
+  background-image: linear-gradient(#fbf7e0, #717171 );
+  height: 450px;
+  margin: 20px;
+  padding:5px;
+}
+
+.show-card-info img{
+  height: auto;
+}
+
+.show-card-info p{
+  padding: 30px;
+  margin-top: 50px;
+}
+
+.show-card-info ul{
+  padding: 10px;
+}
 #episode-select{
   padding: 6px;
   margin-top: 8px;
@@ -104,10 +155,10 @@ display: none;
 
 .search-container  input[type=text] {
 
-  /* float: right; */
+  
   padding: 6px;
   margin-top: 8px;
-  /* margin-left: 100px; */
+  
   font-size: 17px;
   border: none;
 }
@@ -145,10 +196,7 @@ display: none;
 }
 
 .episodes-card :hover{
-
-  /* border-style: groove; */
   background-color: #ece5bd ;
-
 }
 
 @media screen and (max-width:1200px){
@@ -156,15 +204,32 @@ display: none;
     width: 40%;
   }
 }
-/* @media screen and (max-width:768px){
-  .episodes-card{
-    /* height: 450px; 
-  } 
-} */
+
 @media screen and (max-width: 720px){
   .episodes-card{
     width: 70%;
   }
+
+  .show-card{
+    width: 70%;
+  }
+
+  .show-card-info{
+    height: auto;    
+    flex-direction: column;
+  }
+
+  .show-card-info p{
+    padding: auto;
+    margin: 5px;
+  }
+
+  .show-card-info ul{
+    padding: auto;
+    margin-top: 2px;
+  }
+
+
   .search-container{
     flex-direction: column;
   }

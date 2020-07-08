@@ -47,18 +47,23 @@
   
       <div class="search-container">
 
+        <p>Filtering for:</p>
+
+        <form id="show-search-box">          
+          <input id="show-search-word" type="text" placeholder="Search..">
+        </form>
         <select id="show-select">
-          <option value="0">Show All</option>
-          <!-- <option value="orange">Game of Thrones</option>
-          <option value="pineapple">Pineapple</option>
-          <option value="banana">Banana</option> -->
+          <option value="0">Show All</option>          
         </select>
 
+        <!-- <select id="filtered-shows">
+          <option value="0">Show All</option>          
+        </select> -->
+
+
           <select id="episode-select">
-            <option id="all-episodes"  value="showAll">Select One</option>
-            <!-- <option value="orange">Winter is Coming - S01E01</option>
-            <option value="pineapple">Pineapple</option>
-            <option value="banana">Banana</option> -->
+            <option id="all-episodes"  value="showAll">Show All Episodes</option>
+            
           </select>
         
         <form id="search-box">
