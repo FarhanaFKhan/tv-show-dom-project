@@ -15,13 +15,14 @@ const showSearchBoxEl = document.getElementById("show-search-box");
 function setup() {
 
   showSlides(slideIndex);
-  createShowList(allShows);
+  // createShowList(allShows);
   showsDropDownEl.addEventListener('change', selectShow);
   createShowCard(allShows);
   searchBar.style.display = "none";
   dropDownEl.style.display = "none";
   //showsDropDownEl.style.display = "none";
   showSearchBoxEl.addEventListener('keyup',liveSearchShows);
+  displayParagraph[1].innerText = "Displaying:" + " " + allShows.length + "/" + allShows.length;
 }
 
 
@@ -64,8 +65,7 @@ function doLiveSearch(){
 
         /*function to create the dropdown list for shows */
 
-function createShowList(showsList){
-  
+function createShowList(showsList){  
   showsList.forEach(show =>{
     const optEl = document.createElement("option");
     optEl.value = show.id;
@@ -213,6 +213,7 @@ function createDropDownList(episodeList){
             /*function to select an episode */
 
 function selectEpisode(){
+  
   const selected = event.target.value;
   const episodeCards = document.querySelectorAll(".episodes-card");
   const episodeTitles = document.querySelectorAll("h3");
