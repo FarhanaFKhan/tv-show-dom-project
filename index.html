@@ -3,17 +3,101 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Farhana Khan (FarhanaFKhan)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   </head>
 
   <body>
     <div id="root">
-    </div>
+      <div class="slideshow-container">
+        <div class="mySlides">
+          <img src='https://specials-images.forbesimg.com/imageserve/5caf8323a7ea436c70f26349/960x0.jpg?fit=scale'  alt="poster of game of thrones"/>
+            <div class="text">Game of Thrones</div>
+        </div>
+  
+       <div class="mySlides">
+         <img  src='https://c4.wallpaperflare.com/wallpaper/178/471/787/rick-and-morty-run-the-jewels-vector-graphics-wallpaper-preview.jpg'  alt="poster of Rick and Morty"/>
+          <div class="text">Rick & Morty</div>
+       </div>
+  
+       <div class="mySlides">
+         <img  src='https://c4.wallpaperflare.com/wallpaper/342/375/599/breaking-bad-tv-walter-white-jesse-pinkman-wallpaper-preview.jpg'  alt="poster of breaking bad"/>
+          <div class="text">Breaking Bad</div>
+        </div>
+  
+       <div class="mySlides">
+         <img  src='images/Otelly-time.png'  alt="a view of the TV"/>
+          <div class="text">TV MAZE</div>
+       </div>
+    
+  
+        <a class="prev" onclick='plusSlides(-1)'>&#10094;</a>
+        <a class="next" onclick='plusSlides(1)'>&#10095;</a>
+     </div>
+    <br/>
+  
+      <div style='text-align: center;'>
+        <span class="dot" onclick='currentSlide(1)'></span>
+        <span class="dot" onclick='currentSlide(2)'></span>
+        <span class="dot" onclick='currentSlide(3)'></span>
+        <span class="dot" onclick='currentSlide(4)'></span>
+      </div>
+  
+      <div class="search-container">
+
+        <p>Filtering for:</p>
+
+        <form id="show-search-box">          
+          <input id="show-search-word" type="text" placeholder="Search..">
+        </form>
+
+        <select id="show-select">
+          <option value="0">Show All</option>          
+        </select>
+
+        <select id="episode-select">
+            <option id="all-episodes"  value="showAll">Show All Episodes</option>            
+          </select>
+        
+        <form id="search-box">
+          <input id="search-word" type="text" placeholder="Search..">
+        </form>
+
+        <p>Displaying:</p>
+
+      </div>
+       
+      <div class="flex-container"> 
+        <!-- <div class="rows">    rows which has the elements -->
+
+          <!-- <div class="episodes-card">
+
+          
+            <h3></h3>
+            <img src="" alt="">
+            <p></p>
+          
+
+          </div>
+
+          
+
+            
+
+            </div>
+
+           </div>
+            -->
+
+      </div>
+      <footer>Content provided by <a href ="https://www.tvmaze.com/" target="_blank">TVMaze</a> </footer>
+    
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
+    <script src ="shows.js"></script>
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
