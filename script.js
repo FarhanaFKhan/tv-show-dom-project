@@ -9,6 +9,9 @@ const displayParagraph = document.querySelectorAll(".search-container p");
 const dropDownEl = document.getElementById("episode-select");
 const showsDropDownEl = document.getElementById("show-select");
 const showSearchBoxEl = document.getElementById("show-search-box");
+// const showNameEl = document.querySelector(".show-card h2");
+// console.log(showNameEl);
+let showId;
 
 
 
@@ -23,6 +26,13 @@ function setup() {
   //showsDropDownEl.style.display = "none";
   showSearchBoxEl.addEventListener('keyup',liveSearchShows);
   displayParagraph[1].innerText = "Displaying:" + " " + allShows.length + "/" + allShows.length;
+  const showNameEls = document.querySelectorAll(".show-card h2");
+  for(let i = 0; i < showNameEls.length; i++){
+    
+    showNameEls[i].addEventListener('click', clickShow);
+
+  }
+  
 }
 
 
@@ -111,9 +121,38 @@ function clearPage(){
   }
 }     
 
+
+
+/*function for event listener for show name */
+function clickShow(){
+  let sName = event.target.textContent;
+  let showId;
+  //clearPage();
+  allShows.forEach(show =>{
+    if(show.name.includes(sName)){
+     return showId = show.id;
+    }
+    })
+  //console.log(showId);
+  fetch(`https://api.tvmaze.com/shows/${showId}/episodes`)
+   .then(response => response.json())
+   .then(data => {
+    allEpisodes = data;    
+    makePageForEpisodes(allEpisodes);
+    searchBar.addEventListener('keyup',doLiveSearch);
+    createDropDownList(allEpisodes);
+    dropDownEl.addEventListener('change',selectEpisode);
+  })
+  .catch(err => console.log(err));
+    
+  
+  }
+
+
           /*function to select a show */
-function selectShow(){
-  let SHOW_ID = event.target.value;
+function selectShow(){ //if typeof target value not a number then get the show id by heading .includes otherwise let it be
+   let SHOW_ID = event.target.value;
+  
   const episodeSelectEl = document.querySelector("#all-episodes");
   
   if(SHOW_ID === "0"){
@@ -278,7 +317,23 @@ function makePageForEpisodes(episodeList) {
   displayParagraph[1].innerText = `Displaying:${episodeList.length}`;
   searchBar.style.display = "inline";
   showSearchBoxEl.style.display = "none";
-  displayParagraph[0].style.display = "none";
+  //displayParagraph[0].style.display = "inline";
+  displayParagraph[0].textContent = "<< Display Shows";
+  displayParagraph[0].style.textDecoration ="underline";
+  showsDropDownEl.style.display = "none";
+  dropDownEl.style.display ="inline";
+
+  displayParagraph[0].addEventListener('click',()=>{
+    console.log("WORK!!");
+    clearPage();
+    displayParagraph[0].textContent = "Filtering For: ";
+    displayParagraph[0].style.textDecoration = "none";
+    displayParagraph[1].textContent = "Displaying:" + allShows.length;
+    showsDropDownEl.style.display = "inline";
+    dropDownEl.style.display ="none";
+
+    createShowCard(allShows);
+  });
 
  
   episodeList.forEach(episode => {
